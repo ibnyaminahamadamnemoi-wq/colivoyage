@@ -120,6 +120,32 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
                 <input type="tel" id="phoneNumber" placeholder="6 12 34 56 78" maxlength="15">
             </div>
             <button class="btn-phone" onclick="loginPhone()"><i class="fas fa-arrow-right"></i> Continuer</button>
+			
+			<!-- ============================================ -->
+<!-- 📧 SÉPARATEUR + LOGIN EMAIL -->
+<!-- ============================================ -->
+<div class="separator" style="margin: 20px 0; text-align: center; opacity: 0.6;">
+    <span>ou par email</span>
+</div>
+
+<div class="email-input-group" id="emailSection" style="display: flex; flex-direction: column; gap: 10px;">
+    <input 
+        type="email" 
+        id="emailInput" 
+        placeholder="ton@email.com"
+        style="padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; width: 100%;"
+    >
+    <button 
+        class="btn-email" 
+        onclick="loginEmail()"
+        style="padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"
+    >
+        <i class="fas fa-envelope"></i> 
+        Continuer par email
+    </button>
+</div>
+			
+			
         </div>
         <div id="otpSection" class="otp-section hidden">
             <p style="text-align:center">Code envoyé au <strong id="phoneDisplay"></strong></p>
@@ -870,20 +896,136 @@ async function loginGoogle(){
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+// ============================================
+// 📧 LOGIN EMAIL - Magic Link Supabase
+// ============================================
+async function loginEmail() {
+    const email = document.getElementById('emailInput').value.trim();
+    
+    if (!email || !email.includes('@')) {
+        toast("Email invalide", 1);
+        return;
+    }
+    
+    try {
+        toast("Envoi du lien...");
+        
+        const result = await apiCall('/api/auth/email', 'POST', {
+            email: email
+        });
+        
+        if (result.success) {
+            toast("✅ Email envoyé ! Vérifie ta boîte mail", 0);
+            
+            // Afficher un message dans l'interface
+            document.getElementById('emailSection').innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h3>📧 Email envoyé !</h3>
+                    <p>Nous avons envoyé un lien magique à :</p>
+                    <p><strong>${email}</strong></p>
+                    <p style="margin-top: 15px; font-size: 14px; opacity: 0.7;">
+                        Clique sur le lien dans l'email pour te connecter.
+                        <br>Vérifie aussi tes SPAMS !
+                    </p>
+                </div>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('❌ Erreur email:', error);
+        toast("Erreur : " + error.message, 1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // 🔧 CORRIGÉ : Login par téléphone
+// ============================================
+// 📱 LOGIN PHONE - SANS OTP (Simple & Direct)
+// ============================================
 async function loginPhone(){
     const p = document.getElementById('phoneNumber').value.trim();
-    if(!p || p.length < 6){ toast("Numéro invalide", 1); return; }
+    
+    if(!p || p.length < 6){
+        toast("Numéro invalide (min 6 chiffres)", 1);
+        return;
+    }
     
     const code = document.getElementById('countryCode').value;
-    const fullPhone = code + ' ' + p;
+    const fullPhone = code + p;
     user.phone = fullPhone;
     
-    document.getElementById('phoneDisplay').textContent = fullPhone;
-    document.querySelector('.btn-phone').classList.add('hidden');
-    document.querySelector('.phone-input-group').classList.add('hidden');
-    document.getElementById('otpSection').classList.remove('hidden');
-    toast("Code SMS envoyé ! (Mode démo : entrez 1234)");
+    try {
+        toast("Création du compte...");
+        
+        // 1. Vérifier si utilisateur existe déjà
+        console.log('🔍 Recherche utilisateur avec téléphone:', fullPhone);
+        
+        let existingUser = null;
+        try {
+            existingUser = await apiCall('/api/user/by-phone/' + encodeURIComponent(fullPhone));
+        } catch (e) {
+            // Utilisateur n'existe pas, on va le créer
+            console.log('👤 Nouvel utilisateur');
+        }
+        
+        let userData;
+        
+        if (existingUser && existingUser.id) {
+            // ✅ CONNEXION : utilisateur existe déjà
+            console.log('✅ Connexion utilisateur existant:', existingUser);
+            userData = existingUser;
+            toast("Bienvenue ! 👋");
+        } else {
+            // ✅ INSCRIPTION : créer nouveau compte
+            console.log('📝 Création nouveau compte');
+            userData = await apiCall('/api/user', 'POST', {
+                phone: fullPhone,
+                name: "Utilisateur"
+            });
+            toast("Compte créé ! 🎉");
+        }
+        
+        // Sauvegarder
+        user.id = userData.id;
+        user.name = userData.name;
+        user.phone = userData.phone;
+        user.isPremium = userData.is_premium || false;
+        
+        localStorage.setItem('colivoyage_user_id', user.id);
+        localStorage.setItem('colivoyage_user', JSON.stringify(userData));
+        
+        checkUserStatus();
+        
+        // Rediriger vers l'écran suivant
+        setTimeout(() => {
+            hide('loginScreen');
+            show('choiceScreen');
+        }, 800);
+        
+    } catch (error) {
+        console.error('❌ Erreur login:', error);
+        toast("Erreur : " + error.message, 1);
+    }
 }
 
 function otpMove(el,idx){
