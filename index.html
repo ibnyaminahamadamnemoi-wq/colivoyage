@@ -26,6 +26,48 @@
     
     <!-- Schema.org (Google) -->
     <script type="application/ld+json">
+	// ============================================
+// 🔗 CONFIGURATION API BACKEND
+// ============================================
+const API_URL = 'https://colivoyage-backend-production.up.railway.app';
+
+// Fonction helper pour appeler l'API
+async function apiCall(endpoint, method = 'GET', body = null) {
+  try {
+    const options = {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    
+    // Ajouter le token si connecté
+    const token = localStorage.getItem('colivoyage_token');
+    if (token) {
+      options.headers['Authorization'] = 'Bearer ' + token;
+    }
+    
+    if (body && method !== 'GET') {
+      options.body = JSON.stringify(body);
+    }
+    
+    const response = await fetch(API_URL + endpoint, options);
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Erreur serveur');
+    }
+    
+    return data;
+    
+  } catch (error) {
+    console.error('Erreur API ' + endpoint + ':', error);
+    throw error;
+  }
+}
+
+// Test rapide au chargement de la page
+console.log('🔗 API URL configurée:', API_URL);
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
