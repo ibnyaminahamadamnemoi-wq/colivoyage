@@ -121,6 +121,8 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
             </div>
             <button class="btn-phone" onclick="loginPhone()"><i class="fas fa-arrow-right"></i> Continuer</button>
 			
+			
+			
 			<!-- ============================================ -->
 <!-- 📧 SÉPARATEUR + LOGIN EMAIL -->
 <!-- ============================================ -->
@@ -907,7 +909,7 @@ async function loginGoogle(){
 
 
 // ============================================
-// 📧 LOGIN EMAIL - Magic Link Supabase
+// 📧 LOGIN EMAIL - Code à 6 chiffres via Resend
 // ============================================
 async function loginEmail() {
     const email = document.getElementById('emailInput').value.trim();
@@ -918,27 +920,56 @@ async function loginEmail() {
     }
     
     try {
-        toast("Envoi du lien...");
+        toast("Envoi du code...");
         
         const result = await apiCall('/api/auth/email', 'POST', {
             email: email
         });
         
         if (result.success) {
-            toast("✅ Email envoyé ! Vérifie ta boîte mail", 0);
+            // Sauvegarder l'email temporairement
+            user.pendingEmail = email;
             
-            // Afficher un message dans l'interface
+            // Afficher le formulaire pour entrer le code
             document.getElementById('emailSection').innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <h3>📧 Email envoyé !</h3>
-                    <p>Nous avons envoyé un lien magique à :</p>
-                    <p><strong>${email}</strong></p>
-                    <p style="margin-top: 15px; font-size: 14px; opacity: 0.7;">
-                        Clique sur le lien dans l'email pour te connecter.
-                        <br>Vérifie aussi tes SPAMS !
+                <div style="text-align: center; padding: 15px; background: #f0fdf4; border-radius: 12px; margin-bottom: 15px;">
+                    <div style="font-size: 32px;">📧</div>
+                    <p style="margin: 10px 0; color: #16a34a; font-weight: 600;">Code envoyé !</p>
+                    <p style="font-size: 13px; color: #666;">
+                        Vérifie ta boîte mail :<br>
+                        <strong>${email}</strong>
                     </p>
                 </div>
+                
+                <input 
+                    type="text" 
+                    id="emailCodeInput" 
+                    placeholder="Code à 6 chiffres"
+                    maxlength="6"
+                    inputmode="numeric"
+                    style="padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 24px; text-align: center; letter-spacing: 8px; width: 100%; box-sizing: border-box; margin-bottom: 10px; font-weight: bold;"
+                >
+                
+                <button 
+                    onclick="verifyEmailCode()"
+                    style="padding: 14px; background: linear-gradient(135deg, #16a34a, #22c55e); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; width: 100%;"
+                >
+                    ✅ Vérifier le code
+                </button>
+                
+                <p style="text-align: center; margin-top: 10px; font-size: 12px; color: #999;">
+                    ⏱️ Le code expire dans 10 minutes
+                </p>
+                
+                <button 
+                    onclick="location.reload()"
+                    style="padding: 10px; background: none; color: #6366f1; border: none; cursor: pointer; font-size: 13px; width: 100%; margin-top: 5px;"
+                >
+                    ← Retour
+                </button>
             `;
+            
+            toast("✅ Code envoyé !", 0);
         }
         
     } catch (error) {
@@ -947,6 +978,47 @@ async function loginEmail() {
     }
 }
 
+// ============================================
+// 🔐 VÉRIFIER LE CODE EMAIL
+// ============================================
+async function verifyEmailCode() {
+    const code = document.getElementById('emailCodeInput').value.trim();
+    
+    if (!code || code.length !== 6) {
+        toast("Le code doit avoir 6 chiffres", 1);
+        return;
+    }
+    
+    try {
+        toast("Vérification...");
+        
+        const result = await apiCall('/api/auth/verify-email-code', 'POST', {
+            email: user.pendingEmail,
+            code: code
+        });
+        
+        if (result.success && result.user) {
+            user.id = result.user.id;
+            user.email = result.user.email;
+            user.name = result.user.name || result.user.email.split('@')[0];
+            
+            localStorage.setItem('colivoyage_user_id', user.id);
+            localStorage.setItem('colivoyage_user', JSON.stringify(result.user));
+            
+            checkUserStatus();
+            toast("✅ Bienvenue !");
+            
+            setTimeout(() => {
+                hide('loginScreen');
+                show('choiceScreen');
+            }, 800);
+        }
+        
+    } catch (error) {
+        console.error('❌ Erreur code:', error);
+        toast("Code incorrect ou expiré", 1);
+    }
+}
 
 
 
