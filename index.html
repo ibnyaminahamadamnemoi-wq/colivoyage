@@ -101,67 +101,40 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
         </div>
         <h1>Connectez-vous</h1>
         <p class="subtitle">Rejoignez la communauté d'envoi de colis entre particuliers</p>
+        
+        <!-- ============================================ -->
+        <!-- 🔍 GOOGLE LOGIN -->
+        <!-- ============================================ -->
         <button class="btn-google" onclick="loginGoogle()">
             <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
             Continuer avec Google
         </button>
-        <div class="separator"><span>ou par téléphone</span></div>
-        <div class="phone-login">
-            <div class="phone-input-group">
-                <select id="countryCode" class="country-code">
-                    <option value="+212">🇲🇦 +212</option><option value="+269">🇰🇲 +269</option><option value="+33">🇫🇷 +33</option>
-                    <option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+221">🇸🇳 +221</option>
-                    <option value="+225">🇨🇮 +225</option><option value="+213">🇩🇿 +213</option><option value="+216">🇹🇳 +216</option>
-                    <option value="+261">🇲🇬 +261</option><option value="+49">🇩🇪 +49</option><option value="+34">🇪🇸 +34</option>
-                    <option value="+39">🇮🇹 +39</option><option value="+32">🇧🇪 +32</option><option value="+31">🇳🇱 +31</option>
-                    <option value="+90">🇹🇷 +90</option><option value="+20">🇪🇬 +20</option><option value="+234">🇳🇬 +234</option>
-                    <option value="+254">🇰🇪 +254</option><option value="+255">🇹🇿 +255</option><option value="+27">🇿🇦 +27</option>
-                </select>
-                <input type="tel" id="phoneNumber" placeholder="6 12 34 56 78" maxlength="15">
-            </div>
-            <button class="btn-phone" onclick="loginPhone()"><i class="fas fa-arrow-right"></i> Continuer</button>
-			
-			
-			
-			<!-- ============================================ -->
-<!-- 📧 SÉPARATEUR + LOGIN EMAIL -->
-<!-- ============================================ -->
-<div class="separator" style="margin: 20px 0; text-align: center; opacity: 0.6;">
-    <span>ou par email</span>
-</div>
+        
+        <!-- ============================================ -->
+        <!-- 📧 SÉPARATEUR + LOGIN EMAIL -->
+        <!-- ============================================ -->
+        <div class="separator" style="margin: 25px 0; text-align: center; opacity: 0.6;">
+            <span>ou par email</span>
+        </div>
 
-<div class="email-input-group" id="emailSection" style="display: flex; flex-direction: column; gap: 10px;">
-    <input 
-        type="email" 
-        id="emailInput" 
-        placeholder="ton@email.com"
-        style="padding: 12px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; width: 100%;"
-    >
-    <button 
-        class="btn-email" 
-        onclick="loginEmail()"
-        style="padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"
-    >
-        <i class="fas fa-envelope"></i> 
-        Continuer par email
-    </button>
-</div>
-			
-			
+        <div class="email-input-group" id="emailSection" style="display: flex; flex-direction: column; gap: 10px;">
+            <input 
+                type="email" 
+                id="emailInput" 
+                placeholder="ton@email.com"
+                style="padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; width: 100%; box-sizing: border-box;"
+            >
+            <button 
+                class="btn-email" 
+                onclick="loginEmail()"
+                style="padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"
+            >
+                <i class="fas fa-envelope"></i> 
+                Continuer par email
+            </button>
         </div>
-        <div id="otpSection" class="otp-section hidden">
-            <p style="text-align:center">Code envoyé au <strong id="phoneDisplay"></strong></p>
-            <div class="otp-inputs">
-                <input type="text" maxlength="1" class="otp-input" oninput="otpMove(this,1)">
-                <input type="text" maxlength="1" class="otp-input" oninput="otpMove(this,2)">
-                <input type="text" maxlength="1" class="otp-input" oninput="otpMove(this,3)">
-                <input type="text" maxlength="1" class="otp-input" oninput="otpMove(this,4)">
-            </div>
-            <button class="btn-verify" onclick="verifyOTP()">Vérifier le code</button>
-            <p style="text-align:center"><a class="resend-link" onclick="toast('Nouveau code envoyé')">Renvoyer le code</a></p>
-            <p style="text-align:center;font-size:0.75rem;color:var(--gray2);margin-top:10px">💡 Mode démo : entrez 1234</p>
-        </div>
-        <p class="login-footer">En continuant, vous acceptez nos <a onclick="openLegalModal('cgu')">CGU</a> et notre <a onclick="openLegalModal('privacy')">Politique de confidentialité</a></p>
+        
+        <p class="login-footer" style="margin-top: 25px;">En continuant, vous acceptez nos <a onclick="openLegalModal('cgu')">CGU</a> et notre <a onclick="openLegalModal('privacy')">Politique de confidentialité</a></p>
     </div>
     <div class="login-right">
         <div class="login-right-content">
@@ -508,8 +481,8 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
                                 <div class="f-group"><label>Email</label><input type="email" id="pEmail" placeholder="votre@email.com"></div>
                             </div>
                             <div class="f-row">
-                                <div class="f-group"><label>Téléphone</label><input type="tel" id="pPhone" placeholder="+212 6 00 00 00 00"></div>
                                 <div class="f-group"><label>Ville</label><input type="text" id="pCity" placeholder="Votre ville"></div>
+                                <div class="f-group"><label>Pays</label><input type="text" id="pCountry" placeholder="Votre pays"></div>
                             </div>
                             <div class="f-group"><label>Bio</label><textarea id="pBio" placeholder="Présentez-vous..."></textarea></div>
                             <button type="submit" class="btn-submit"><i class="fas fa-floppy-disk"></i> Enregistrer</button>
@@ -603,7 +576,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
                     <div class="method" onclick="selectMethod('moov', this)"><div class="method-icon mi-moov"><i class="fas fa-mobile-alt"></i></div><div class="method-info"><h4>Moov Money</h4><p>Afrique</p></div></div>
                 </div>
                 <div id="mobileInput" class="mobile-input hidden">
-                    <label>📱 Votre numéro de téléphone</label>
+                    <label>📱 Votre numéro de téléphone (pour Mobile Money)</label>
                     <input type="tel" id="phoneNumberPay" placeholder="+225 07 12 34 56 78">
                 </div>
             </div>
@@ -619,9 +592,6 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;font-fami
 
 <!-- ========== TOAST ========== -->
 <div id="toastEl" class="toast hidden"><i class="fas fa-check-circle t-ok"></i><span id="toastTxt"></span></div>
-
-
-
 <script>
 // ============================================
 // 🔧 CONFIGURATION API (BACKEND RAILWAY)
@@ -672,7 +642,7 @@ const COUNTRIES = [
     {n:"Ghana",f:"🇬🇭",c:"AF"},{n:"Nigeria",f:"🇳🇬",c:"AF"},{n:"Mauritanie",f:"🇲🇷",c:"AF"},{n:"Djibouti",f:"🇩🇯",c:"AF"},
     {n:"Kenya",f:"🇰🇪",c:"AF"},{n:"Tanzanie",f:"🇹🇿",c:"AF"},{n:"Ouganda",f:"🇺🇬",c:"AF"},{n:"Rwanda",f:"🇷🇼",c:"AF"},
     {n:"Éthiopie",f:"🇪🇹",c:"AF"},{n:"Afrique du Sud",f:"🇿🇦",c:"AF"},{n:"Égypte",f:"🇪🇬",c:"AF"},{n:"Libye",f:"🇱🇾",c:"AF"},
-    {n:"Ghana",f:"🇬🇭",c:"AF"},{n:"Angola",f:"🇦🇴",c:"AF"},{n:"Zambie",f:"🇿🇲",c:"AF"},{n:"Zimbabwe",f:"🇿🇼",c:"AF"},
+    {n:"Angola",f:"🇦🇴",c:"AF"},{n:"Zambie",f:"🇿🇲",c:"AF"},{n:"Zimbabwe",f:"🇿🇼",c:"AF"},
     {n:"Mozambique",f:"🇲🇿",c:"AF"},{n:"Cap-Vert",f:"🇨🇻",c:"AF"},{n:"Maurice",f:"🇲🇺",c:"AF"},
     {n:"Allemagne",f:"🇩🇪",c:"EU"},{n:"Espagne",f:"🇪🇸",c:"EU"},{n:"Italie",f:"🇮🇹",c:"EU"},{n:"Belgique",f:"🇧🇪",c:"EU"},
     {n:"Pays-Bas",f:"🇳🇱",c:"EU"},{n:"Royaume-Uni",f:"🇬🇧",c:"EU"},{n:"Portugal",f:"🇵🇹",c:"EU"},{n:"Suisse",f:"🇨🇭",c:"EU"},
@@ -702,7 +672,7 @@ function fillSelects(){
 // ============================================
 // 🗂️ VARIABLES GLOBALES
 // ============================================
-let user = {id:null,name:"Utilisateur",email:null,phone:null,isPremium:false,plan:'free',freePublications:0,rating:0};
+let user = {id:null,name:"Utilisateur",email:null,isPremium:false,plan:'free',freePublications:0,rating:0};
 let role = null;
 let TRAJETS = [], DEMANDES = [], mesC = [], mesT = [];
 let selectedPlan = 'yearly', selectedMethod = 'paypal', fromChoiceScreen = false;
@@ -779,7 +749,7 @@ const LEGAL_TEXTS = {
         title: '<i class="fas fa-shield-halved"></i> Politique de Confidentialité (RGPD)',
         content: `<p><em>Conforme RGPD</em></p>
             <p style="background:#f0fdf4;border-left:4px solid #10b981;padding:15px;border-radius:8px"><strong>🛡️ Votre vie privée est notre priorité.</strong></p>
-            <h4>Données collectées</h4><ul><li>Nom, email, téléphone</li><li>Ville, photo, biographie</li></ul>
+            <h4>Données collectées</h4><ul><li>Nom, email</li><li>Ville, photo, biographie</li></ul>
             <h4>Vos droits RGPD</h4><ul><li>Droit d'accès</li><li>Droit de rectification</li><li>Droit à l'effacement</li></ul>
             <p><strong>Contact :</strong> privacy@colivoyage.com</p>`
     },
@@ -848,15 +818,19 @@ function updateRatingUI(){
     stars.forEach((s, i) => {
         s.className = i < user.rating ? 'fas fa-star' : 'far fa-star';
     });
-    document.getElementById('ratingText').textContent = user.rating > 0 ? `${user.rating}/5 étoiles` : 'Aucune note';
-    if (user.rating > 0) document.getElementById('statNote').textContent = user.rating.toFixed(1);
+    const rt = document.getElementById('ratingText');
+    if (rt) rt.textContent = user.rating > 0 ? `${user.rating}/5 étoiles` : 'Aucune note';
+    if (user.rating > 0) {
+        const sn = document.getElementById('statNote');
+        if (sn) sn.textContent = user.rating.toFixed(1);
+    }
 }
 
 // ============================================
-// 🔐 AUTHENTIFICATION - VERSION CONNECTÉE AU BACKEND
+// 🔐 AUTHENTIFICATION - EMAIL UNIQUEMENT
 // ============================================
 
-// 🔧 CORRIGÉ : Connexion Google avec Supabase
+// 🔧 Connexion Google (simulée)
 async function loginGoogle(){
     try {
         toast("Connexion en cours...", 'loading');
@@ -898,18 +872,8 @@ async function loginGoogle(){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 // ============================================
-// 📧 LOGIN EMAIL - Code à 6 chiffres via Resend
+// 📧 LOGIN EMAIL - Envoi code via Brevo
 // ============================================
 async function loginEmail() {
     const email = document.getElementById('emailInput').value.trim();
@@ -920,7 +884,7 @@ async function loginEmail() {
     }
     
     try {
-        toast("Envoi du code...");
+        toast("Envoi du code...", 'loading');
         
         const result = await apiCall('/api/auth/email', 'POST', {
             email: email
@@ -958,7 +922,8 @@ async function loginEmail() {
                 </button>
                 
                 <p style="text-align: center; margin-top: 10px; font-size: 12px; color: #999;">
-                    ⏱️ Le code expire dans 10 minutes
+                    ⏱️ Le code expire dans 10 minutes<br>
+                    📁 Vérifie aussi tes SPAMS
                 </p>
                 
                 <button 
@@ -969,7 +934,7 @@ async function loginEmail() {
                 </button>
             `;
             
-            toast("✅ Code envoyé !", 0);
+            toast("✅ Code envoyé !", 'success');
         }
         
     } catch (error) {
@@ -990,7 +955,7 @@ async function verifyEmailCode() {
     }
     
     try {
-        toast("Vérification...");
+        toast("Vérification...", 'loading');
         
         const result = await apiCall('/api/auth/verify-email-code', 'POST', {
             email: user.pendingEmail,
@@ -1001,12 +966,15 @@ async function verifyEmailCode() {
             user.id = result.user.id;
             user.email = result.user.email;
             user.name = result.user.name || result.user.email.split('@')[0];
+            user.isPremium = result.user.is_premium || false;
+            user.plan = result.user.premium_plan || 'free';
             
             localStorage.setItem('colivoyage_user_id', user.id);
+            localStorage.setItem('colivoyage_user_email', user.email);
             localStorage.setItem('colivoyage_user', JSON.stringify(result.user));
             
             checkUserStatus();
-            toast("✅ Bienvenue !");
+            toast("✅ Bienvenue !", 'success');
             
             setTimeout(() => {
                 hide('loginScreen');
@@ -1020,143 +988,7 @@ async function verifyEmailCode() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-// 🔧 CORRIGÉ : Login par téléphone
-// ============================================
-// 📱 LOGIN PHONE - SANS OTP (Simple & Direct)
-// ============================================
-async function loginPhone(){
-    const p = document.getElementById('phoneNumber').value.trim();
-    
-    if(!p || p.length < 6){
-        toast("Numéro invalide (min 6 chiffres)", 1);
-        return;
-    }
-    
-    const code = document.getElementById('countryCode').value;
-    const fullPhone = code + p;
-    user.phone = fullPhone;
-    
-    try {
-        toast("Création du compte...");
-        
-        // 1. Vérifier si utilisateur existe déjà
-        console.log('🔍 Recherche utilisateur avec téléphone:', fullPhone);
-        
-        let existingUser = null;
-        try {
-            existingUser = await apiCall('/api/user/by-phone/' + encodeURIComponent(fullPhone));
-        } catch (e) {
-            // Utilisateur n'existe pas, on va le créer
-            console.log('👤 Nouvel utilisateur');
-        }
-        
-        let userData;
-        
-        if (existingUser && existingUser.id) {
-            // ✅ CONNEXION : utilisateur existe déjà
-            console.log('✅ Connexion utilisateur existant:', existingUser);
-            userData = existingUser;
-            toast("Bienvenue ! 👋");
-        } else {
-            // ✅ INSCRIPTION : créer nouveau compte
-            console.log('📝 Création nouveau compte');
-            userData = await apiCall('/api/user', 'POST', {
-                phone: fullPhone,
-                name: "Utilisateur"
-            });
-            toast("Compte créé ! 🎉");
-        }
-        
-        // Sauvegarder
-        user.id = userData.id;
-        user.name = userData.name;
-        user.phone = userData.phone;
-        user.isPremium = userData.is_premium || false;
-        
-        localStorage.setItem('colivoyage_user_id', user.id);
-        localStorage.setItem('colivoyage_user', JSON.stringify(userData));
-        
-        checkUserStatus();
-        
-        // Rediriger vers l'écran suivant
-        setTimeout(() => {
-            hide('loginScreen');
-            show('choiceScreen');
-        }, 800);
-        
-    } catch (error) {
-        console.error('❌ Erreur login:', error);
-        toast("Erreur : " + error.message, 1);
-    }
-}
-
-function otpMove(el,idx){
-    if(el.value.length===1){
-        const ins=document.querySelectorAll('.otp-input');
-        if(idx<ins.length)ins[idx].focus();
-    }
-}
-
-// 🔧 CORRIGÉ : Vérification OTP avec création dans Supabase
-async function verifyOTP(){
-    try {
-        let otpCode = '';
-        document.querySelectorAll('.otp-input').forEach(i => otpCode += i.value);
-        
-        if(otpCode.length < 4){ toast("Entrez le code complet", 1); return; }
-        
-        if (otpCode !== '1234') {
-            toast("Code incorrect (démo : 1234)", 1);
-            return;
-        }
-        
-        toast("Vérification en cours...", 'loading');
-        
-        let userData;
-        try {
-            userData = await apiCall('/api/user', 'POST', {
-                phone: user.phone,
-                name: "Utilisateur"
-            });
-            console.log('✅ Utilisateur créé:', userData);
-        } catch (error) {
-            console.log('⚠️ Erreur création, on continue en local');
-            userData = { id: 'user_' + Date.now(), phone: user.phone, name: "Utilisateur" };
-        }
-        
-        user.id = userData.id;
-        user.name = userData.name || "Utilisateur";
-        user.phone = userData.phone || user.phone;
-        user.isPremium = userData.is_premium || false;
-        user.plan = userData.premium_plan || 'free';
-        user.freePublications = userData.free_publications || 0;
-        
-        localStorage.setItem('colivoyage_user_id', user.id);
-        localStorage.setItem('colivoyage_user_phone', user.phone);
-        
-        toast("Vérification réussie ! 🎉");
-        setTimeout(() => {
-            hide('loginScreen');
-            show('choiceScreen');
-        }, 600);
-        
-    } catch (error) {
-        console.error('Erreur verifyOTP:', error);
-        toast("Erreur : " + error.message, 1);
-    }
-}
-
-// 🔧 CORRIGÉ : Vérifier le vrai statut
+// 🔧 Vérifier le vrai statut utilisateur
 async function checkUserStatus(){
     const savedUserId = localStorage.getItem('colivoyage_user_id');
     if (!savedUserId) return;
@@ -1167,7 +999,6 @@ async function checkUserStatus(){
             user.id = userData.id;
             user.name = userData.name || "Utilisateur";
             user.email = userData.email;
-            user.phone = userData.phone;
             user.isPremium = userData.is_premium || false;
             user.plan = userData.premium_plan || 'free';
             user.freePublications = userData.free_publications || 0;
@@ -1250,7 +1081,6 @@ async function processPayment(){
     }
 }
 
-// 🔧 CORRIGÉ : Vrai paiement PayPal
 async function payWithPayPal() {
     try {
         toast("Création du paiement PayPal...", 'loading');
@@ -1280,7 +1110,6 @@ async function payWithPayPal() {
     }
 }
 
-// 🔧 Vérifier le retour PayPal
 async function checkPayPalReturn() {
     const urlParams = new URLSearchParams(window.location.search);
     const paymentStatus = urlParams.get('payment');
@@ -1341,7 +1170,8 @@ function activatePremium(){
 function updatePremiumUI(){
     if(user.isPremium){
         document.querySelectorAll('.ad-container').forEach(ad=>ad.style.display='none');
-        document.getElementById('freeLimitWarning').classList.add('hidden');
+        const flw = document.getElementById('freeLimitWarning');
+        if (flw) flw.classList.add('hidden');
         const cta = document.getElementById('premiumCTASidebar');
         if(cta){
             cta.classList.add('active-premium');
@@ -1384,11 +1214,13 @@ async function chooseRole(r){
     }
     
     document.getElementById('navName').textContent = user.name;
-    document.getElementById('pName').textContent = user.name;
-    document.getElementById('pRole').textContent = r==='client' ? 'Expéditeur' : 'Voyageur';
-    document.getElementById('welcomeText').textContent = `Bienvenue ! Mode ${r==='client' ? 'expéditeur' : 'voyageur'} activé.`;
+    const pn = document.getElementById('pName');
+    if (pn) pn.textContent = user.name;
+    const pr = document.getElementById('pRole');
+    if (pr) pr.textContent = r==='client' ? 'Expéditeur' : 'Voyageur';
+    const wt = document.getElementById('welcomeText');
+    if (wt) wt.textContent = `Bienvenue ! Mode ${r==='client' ? 'expéditeur' : 'voyageur'} activé.`;
     
-    // 🔧 Charger les vraies données
     toast("Chargement des données...", 'loading');
     await Promise.all([
         loadTrajetsFromDB(),
@@ -1397,10 +1229,9 @@ async function chooseRole(r){
     
     updatePremiumUI();
     updateRatingUI();
-    toast("✅ Données chargées !");
+    toast("✅ Données chargées !", 'success');
 }
 
-// 🔧 NOUVEAU : Charger trajets depuis Supabase
 async function loadTrajetsFromDB(){
     try {
         console.log('📥 Chargement des trajets...');
@@ -1430,7 +1261,6 @@ async function loadTrajetsFromDB(){
     }
 }
 
-// 🔧 NOUVEAU : Charger colis depuis Supabase
 async function loadColisFromDB(){
     try {
         console.log('📥 Chargement des colis...');
@@ -1463,16 +1293,14 @@ function switchRole(){toggleDrop(); hide('mainApp'); show('roleScreen')}
 function doLogout(){
     localStorage.removeItem('colivoyage_user_id');
     localStorage.removeItem('colivoyage_user_email');
-    localStorage.removeItem('colivoyage_user_phone');
-    user = {id:null,name:"Utilisateur",isPremium:false,plan:'free',freePublications:0,rating:0};
+    localStorage.removeItem('colivoyage_user');
+    user = {id:null,name:"Utilisateur",email:null,isPremium:false,plan:'free',freePublications:0,rating:0};
     role = null;
     hide('mainApp'); hide('roleScreen'); hide('choiceScreen'); show('loginScreen');
-    document.getElementById('phoneNumber').value='';
-    document.querySelector('.btn-phone').classList.remove('hidden');
-    document.querySelector('.phone-input-group').classList.remove('hidden');
-    document.getElementById('otpSection').classList.add('hidden');
-    document.querySelectorAll('.otp-input').forEach(i=>i.value='');
+    const ei = document.getElementById('emailInput');
+    if (ei) ei.value='';
     toggleDrop(); toast("Déconnecté");
+    setTimeout(() => location.reload(), 500);
 }
 
 // ============================================
@@ -1504,6 +1332,7 @@ document.addEventListener('click',e=>{
 function renderVoy(data){
     data = data || TRAJETS;
     const el = document.getElementById('voyResults');
+    if (!el) return;
     if(!data.length){
         el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-plane-departure"></i><h3>Aucun trajet</h3><p>Soyez le premier !</p><button class="btn-cta" onclick="switchRole()"><i class="fas fa-plus"></i> Devenir voyageur</button></div>`;
         return;
@@ -1567,7 +1396,6 @@ function incrementFreeCount(){
     }
 }
 
-// 🔧 CORRIGÉ : Publier un colis dans Supabase
 async function pubColis(e){
     e.preventDefault();
     if(!checkFreeLimit()) return;
@@ -1606,8 +1434,9 @@ async function pubColis(e){
         incrementFreeCount();
         
         e.target.reset();
-        document.getElementById('cPrev').innerHTML = '';
-        toast("✅ Demande publiée avec succès !");
+        const cp = document.getElementById('cPrev');
+        if (cp) cp.innerHTML = '';
+        toast("✅ Demande publiée avec succès !", 'success');
         setTimeout(() => { goTo('mesColis'); renderMesC(); }, 800);
         
     } catch (error) {
@@ -1627,6 +1456,7 @@ function prevImg(inp,prev){
 function renderMesC(filter){
     filter = filter||'tous';
     const el = document.getElementById('colisListEl');
+    if (!el) return;
     let d = filter==='tous' ? mesC : mesC.filter(c=>c.status===filter);
     if(!d.length){
         el.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>Aucun envoi</h3><p>Publiez votre première demande</p><button class="btn-cta" onclick="goTo('publishColis')"><i class="fas fa-plus"></i> Publier</button></div>`;
@@ -1687,7 +1517,6 @@ function doSearchColis(){
     toast(r.length+' demande(s)');
 }
 
-// 🔧 CORRIGÉ : Publier un trajet dans Supabase
 async function pubTrajet(e){
     e.preventDefault();
     if(!checkFreeLimit()) return;
@@ -1733,7 +1562,7 @@ async function pubTrajet(e){
         incrementFreeCount();
         
         e.target.reset();
-        toast("✅ Trajet publié avec succès !");
+        toast("✅ Trajet publié avec succès !", 'success');
         setTimeout(() => { goTo('mesTrajets'); renderMesT(); }, 800);
         
     } catch (error) {
@@ -1744,6 +1573,7 @@ async function pubTrajet(e){
 
 function renderMesT(){
     const el = document.getElementById('trajetsListEl');
+    if (!el) return;
     if(!mesT.length){
         el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><h3>Aucun trajet</h3><p>Publiez votre premier trajet</p><button class="btn-cta" onclick="goTo('publishTrajet')"><i class="fas fa-plus"></i> Publier</button></div>`;
         return;
@@ -1756,7 +1586,6 @@ async function saveProf(e){
     const updates = {
         name: document.getElementById('pFullName').value,
         email: document.getElementById('pEmail').value,
-        phone: document.getElementById('pPhone').value,
         city: document.getElementById('pCity').value,
         bio: document.getElementById('pBio').value
     };
@@ -1764,14 +1593,15 @@ async function saveProf(e){
     if(updates.name){
         user.name = updates.name;
         document.getElementById('navName').textContent = updates.name;
-        document.getElementById('pName').textContent = updates.name;
+        const pn = document.getElementById('pName');
+        if (pn) pn.textContent = updates.name;
     }
     
     try {
         if (user.id) {
             await apiCall(`/api/user/${user.id}`, 'PUT', updates);
         }
-        toast("✅ Profil enregistré !");
+        toast("✅ Profil enregistré !", 'success');
     } catch (error) {
         console.error('Erreur:', error);
         toast("Profil enregistré localement");
@@ -1888,10 +1718,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         user.id = savedUserId;
         await checkUserStatus();
         
-        // Si Premium, aller directement au choix du rôle
-        if (user.isPremium) {
+        // Si connecté, aller au choix
+        if (user.email) {
             hide('loginScreen');
-            show('roleScreen');
+            show('choiceScreen');
         }
     }
 });
